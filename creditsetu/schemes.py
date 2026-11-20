@@ -56,7 +56,14 @@ def _check(check: dict, facts: dict):
     raise ValueError(f"Unknown operator: {op}")
 
 
-def evaluate_scheme(rule: dict, applicant: Applicant) -> SchemeResult:
+def _l(obj: dict, key: str, lang: str, default: str = "") -> str:
+    """Pick the Hindi field (``key_hi``) when asked for and present, else English."""
+    if lang == "hi" and obj.get(f"{key}_hi"):
+        return obj[f"{key}_hi"]
+    return obj.get(key, default)
+
+
+def evaluate_scheme(rule: dict, applicant: Applicant, lang: str = "en") -> SchemeResult:
     facts = applicant.as_facts()
     sources = rule.get("sources", [])
     results: list[CriterionResult] = []
@@ -67,9 +74,9 @@ def evaluate_scheme(rule: dict, applicant: Applicant) -> SchemeResult:
         outcome = _check(crit["check"], facts)
         status = "pass" if outcome is True else ("unknown" if outcome == UNKNOWN else "fail")
         src = sources[crit.get("source", 0)] if sources else {"title": "", "url": ""}
-        results.append(CriterionResult(text=crit["text"], status=status,
+        results.append(CriterionResult(text=_l(crit, "text", lang), status=status,
                                        source_title=src["title"], source_url=src["url"],
-                                       fix=crit.get("fix", "")))
+                                       fix=_l(crit, "fix", lang)))
 
     if any(r.status == "fail" for r in results):
         overall = "not_fit"
@@ -83,25 +90,25 @@ def evaluate_scheme(rule: dict, applicant: Applicant) -> SchemeResult:
         covers = min(applicant.loan_amount, rule["max_amount"])
 
     return SchemeResult(
-        scheme_id=rule["id"], scheme=rule["scheme"], name=rule["name"], kind=rule["kind"],
-        status=overall, summary=rule["summary"], benefit=rule["benefit"],
-        apply_via=rule.get("apply_via", ""), criteria=results, covers_amount=covers,
+        scheme_id=rule["id"], scheme=rule["scheme"], name=_l(rule, "name", lang), kind=rule["kind"],
+        status=overall, summary=_l(rule, "summary", lang), benefit=_l(rule, "benefit", lang),
+        apply_via=_l(rule, "apply_via", lang), criteria=results, covers_amount=covers,
         indicative_rate=rule.get("indicative_rate"), tenure_months=rule.get("tenure_months"),
-        status_note=rule.get("status_note", ""),
+        status_note=_l(rule, "status_note", lang),
     )
 
 
 STATUS_ORDER = {"eligible": 0, "needs_info": 1, "not_fit": 2}
 
 
-def match_schemes(applicant: Applicant, rules: Optional[dict] = None) -> list[SchemeResult]:
+def match_schemes(applicant: Applicant, rules: Optional[dict] = None, lang: str = "en") -> list[SchemeResult]:
     """Evaluate every scheme. Loans first (cheapest indicative rate first), then guarantees.
 
     MUDRA categories that don't match the loan amount are dropped from the list
     instead of shown as "not a fit", so the owner sees one MUDRA answer.
     """
     rules = rules or load_rules()
-    results = [evaluate_scheme(r, applicant) for r in rules["schemes"]]
+    results = [evaluate_scheme(r, applicant, lang) for r in rules["schemes"]]
 
     mudra = [r for r in results if r.scheme == "PM MUDRA Yojana"]
     keep_mudra = [r for r in mudra if r.status != "not_fit"] or mudra[:1]
@@ -113,10 +120,10 @@ def match_schemes(applicant: Applicant, rules: Optional[dict] = None) -> list[Sc
     return sorted(results, key=key)
 
 
-def suggest_plan(applicant: Applicant, results: list[SchemeResult]) -> list[dict]:
+def suggest_plan(applicant: Applicant, results: list[SchemeResult], lang: str = "en") -> list[dict]:
     """Greedy plan: fill the loan need from the cheapest eligible / likely-eligible loans first.
 
-    Returns [{"name", "amount", "rate", "tenure_months", "status"}]. The owner decides.
+    Returns [{"scheme_id", "name", "amount", "rate", "tenure_months", "status"}]. The owner decides.
     """
     need = applicant.loan_amount or 0
     plan = []
@@ -129,7 +136,7 @@ def suggest_plan(applicant: Applicant, results: list[SchemeResult]) -> list[dict
         if r.scheme in used_schemes:
             continue
         amount = min(need, r.covers_amount or need)
-        plan.append({"name": r.name, "amount": amount, "rate": r.indicative_rate,
+        plan.append({"scheme_id": r.scheme_id, "name": r.name, "amount": amount, "rate": r.indicative_rate,
                      "tenure_months": r.tenure_months, "status": r.status})
         used_schemes.add(r.scheme)
         need -= amount
@@ -138,13 +145,14 @@ def suggest_plan(applicant: Applicant, results: list[SchemeResult]) -> list[dict
     # covered elsewhere, re-pick the MUDRA category that fits the remainder.
     rules = load_rules()
     for item in plan:
-        if item["name"].startswith("MUDRA"):
+        if item["scheme_id"].startswith("pmmy_"):
             for rule in rules["schemes"]:
                 if rule["scheme"] != "PM MUDRA Yojana":
                     continue
                 amt_rule = next(c for c in rule["criteria"] if c["id"] == "amount")["check"]["value"]
                 if amt_rule[0] <= item["amount"] <= amt_rule[1]:
-                    item["name"] = rule["name"]
+                    item["scheme_id"] = rule["id"]
+                    item["name"] = _l(rule, "name", lang)
                     item["tenure_months"] = rule.get("tenure_months")
                     break
     return plan

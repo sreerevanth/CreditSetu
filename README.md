@@ -2,18 +2,19 @@
 
 # 🌉 CreditSetu
 
-### An AI agent that connects small businesses to formal credit and the government schemes meant for them
+### The bridge between India's small businesses and the formal credit meant for them
 
 *Setu* (सेतु) means **bridge**.
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-16233F?style=flat-square&logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/UI-Streamlit-E8A33D?style=flat-square&logo=streamlit&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-14%20passing-23694A?style=flat-square)
-![Status](https://img.shields.io/badge/status-hackathon%20prototype-8F5410?style=flat-square)
+![Streamlit](https://img.shields.io/badge/app-Streamlit-E8A33D?style=flat-square&logo=streamlit&logoColor=white)
+![Languages](https://img.shields.io/badge/English%20%7C%20हिन्दी-full%20UI-8F5410?style=flat-square)
+![Tests](https://img.shields.io/badge/tests-35%20passing-23694A?style=flat-square)
+![Agent](https://img.shields.io/badge/agent-offline%20%2B%20Claude-22335C?style=flat-square)
 
 **Hackathon theme:** MSME Finance and Compliance · **Problem 3.2:** Viable small businesses cannot reach formal credit or the schemes meant for them
 
-[The problem](#-the-problem) · [What it does](#-what-creditsetu-does) · [Demo](#-demo) · [How it works](#-how-it-works) · [Run it](#-run-it-locally) · [Responsible AI](#-responsible-ai-by-design) · [Research](research/) · [Roadmap](#-roadmap)
+[What it does](#-what-creditsetu-does) · [Product tour](#-product-tour) · [How it works](#%EF%B8%8F-how-it-works) · [Run it](#-run-it) · [Deploy](DEPLOY.md) · [Responsible AI](#%EF%B8%8F-responsible-ai-by-design) · [Research](research/)
 
 </div>
 
@@ -30,53 +31,69 @@ India's small businesses (tailors, fabricators, dairy units, SHG enterprises) of
 | **10–15%** | of the loan taken by middlemen |
 | **24–36%** | interest charged by moneylenders when formal credit fails |
 
-*Source: hackathon problem statement 3.2.* SIDBI estimates the MSME sector's addressable credit gap at **about ₹30 lakh crore**, and the gap is widest for women-owned businesses. More in [research/01-problem-analysis.md](research/01-problem-analysis.md).
+*Source: hackathon problem statement 3.2.* SIDBI puts the MSME sector's addressable credit gap at **about ₹30 lakh crore**, widest for women-owned businesses. More in [research/01-problem-analysis.md](research/01-problem-analysis.md).
 
 ## 💡 What CreditSetu does
 
-CreditSetu is a **borrower-side agent**. It sits on the owner's side, not the lender's, and takes them from *"I need money"* to *"application ready"* in one guided flow:
+CreditSetu is a **borrower-side agent** with a **lender-side workspace**. One product, both sides of the loan:
 
-| Step | What happens |
+| For the business owner | For the bank |
 |---|---|
-| **1. Consent first** | The owner sees exactly what data is used and why. Nothing is read until they agree. |
-| **2. Read the signals** | A bank or UPI statement becomes a cash-flow profile: income, seasonality, surplus, customer base. |
-| **3. Match schemes, with citations** | MUDRA, PM Vishwakarma, PMEGP, Stand-Up India, CGFMU and CGTMSE are checked against encoded rules. **Every criterion links to its official source.** |
-| **4. Explain the score** | A transparent 0–100 readiness score. Every factor shows what was measured and how to improve it. |
-| **5. Fill the file** | A checklist of only the missing documents, and a pre-filled application with a cash-flow summary. |
-| **6. Owner approves** | Nothing leaves without the owner's explicit approval. |
+| 💬 **Chat with Setu** in English, Hindi or Hinglish: *"मैं दर्जी हूँ, तीन लाख चाहिए"* | 🏦 **Officer workspace** with a queue of complete, owner-approved files |
+| 📎 **Upload a PDF bank statement** or a **photo of a quotation**: read on the device, never stored | 📊 Cash-flow summary, readiness score with reasons, scheme fit with sources |
+| 🔗 **Every scheme result cites its official rule**: MUDRA, PM Vishwakarma, PMEGP, Stand-Up India, CGFMU, CGTMSE | ✅ Document checklist: see at a glance what's missing |
+| ⚖️ **Explainable readiness score** with concrete fixes ("register on Udyam: +10") | 🔁 One-click status updates and notes, **which the owner sees instantly** |
+| ✍️ **Ready-made application** sent only when the owner presses **Approve** | 📥 Machine-readable JSON loan file for core banking systems |
+| 📦 **Track the application** with a live timeline | |
 
-**Example (the demo persona):** Sunita runs a tailoring unit and needs ₹3 lakh. CreditSetu finds that she fits **MUDRA Kishore**, and that as a tailor she's also likely eligible for **PM Vishwakarma**, a collateral-free loan at **5%** that most people in her position have never heard of. It explains why **Stand-Up India** and **PMEGP** are *not* a fit, and suggests a plan using the cheapest options first.
+**The "aha" in the demo:** Sunita, a tailor, asks for ₹3 lakh. Setu finds she fits **MUDRA Kishore**, and that as a tailor she's also likely eligible for **PM Vishwakarma**, a collateral-free loan at **5%** most artisans have never heard of. It explains why **Stand-Up India** and **PMEGP** are *not* a fit, plans the cheapest mix, drafts the file, and sends it to the bank once she approves.
 
-## 🎬 Demo
+## 🎬 Product tour
 
-| Cash-flow profile | Schemes, each with its source |
+| Home | Chat with Setu |
 |---|---|
-| ![Cash-flow profile](docs/screenshots/3-profile.png) | ![Scheme matches](docs/screenshots/4-schemes.png) |
-| **Explainable readiness score** | **Review and approve** |
-| ![Readiness score](docs/screenshots/5-score.png) | ![Application review](docs/screenshots/6-application.png) |
+| ![Home](docs/screenshots/home.png) | ![Chat](docs/screenshots/chat.png) |
+| **Every scheme with its source** | **Full Hindi experience** |
+| ![Schemes in chat](docs/screenshots/chat-schemes.png) | ![Hindi chat](docs/screenshots/chat-hindi.png) |
+| **Bank officer queue** | **Bank officer file view** |
+| ![Bank queue](docs/screenshots/bank-queue.png) | ![Bank file](docs/screenshots/bank-file.png) |
 
-> The demo runs on a **synthetic** 14-month statement ([`data/sample_statement_sunita.csv`](data/sample_statement_sunita.csv)). No real person's data is used.
+> All demo data is **synthetic**: a 14-month statement for Sunita, a PDF version of it, a quotation photo, and six fictional businesses in the bank queue.
+
+**Try it in 60 seconds:** open the app → **⚡ See the 60-second demo** → **Prepare my application** → tick the approval box → **Approve and send to bank** → open **🏦 Bank officer** to see it arrive → update its status → check **📦 Track application**.
 
 ## ⚙️ How it works
 
 ```mermaid
 flowchart LR
-    A[Owner<br/>web · WhatsApp later] -->|consents| B[Statement reader<br/>CSV bank / UPI export]
-    B --> C[Cash-flow profile<br/>income · seasonality · surplus]
-    A -->|answers a few questions| D[Scheme engine<br/>rules + citations]
-    R[(data/schemes.json<br/>official sources)] --> D
-    C --> E[Readiness score<br/>rule-based · no protected attributes]
-    D --> F[Financing plan<br/>cheapest first]
-    F --> E
-    E --> G[Draft application<br/>+ document checklist]
-    D --> G
-    G -->|owner approves| H[Download / hand-off<br/>lender · JanSamarth · Udyamimitra]
-    G -.optional.-> L[LLM explainer<br/>plain English / Hindi]
+    O[Owner<br/>chat · Hindi/English] --> A{Setu agent<br/>offline or Claude}
+    D[PDF / CSV statement<br/>quotation photo] --> R[Document readers<br/>pdfplumber · on-device OCR]
+    R --> A
+    A -->|tools| P[Cash-flow profile]
+    A -->|tools| E[Scheme rule engine<br/>+ official sources]
+    S[(schemes.json)] --> E
+    P --> SC[Readiness score<br/>no protected attributes]
+    E --> PL[Cheapest-first plan]
+    PL --> SC
+    SC --> AP[Draft application<br/>+ checklist]
+    AP -->|owner approves| Q[(Application store)]
+    Q --> B[Bank officer workspace]
+    B -->|status + note| Q
+    Q --> T[Owner tracking]
 ```
 
-**Key design choice:** the LLM is **never the source of truth**. Eligibility comes from deterministic rules with citations, and the score from transparent rules. An optional LLM layer only rephrases those results in simple English or Hindi, and is told to add nothing new. See [research/05-design-decisions.md](research/05-design-decisions.md).
+**The agent never decides eligibility.** Setu (offline or Claude) talks to the owner and calls tools, but eligibility comes only from the cited rule engine, the score only from the score function, and **submission is not a tool at all**: only the owner's *Approve* button can send a file.
 
-## 🚀 Run it locally
+### Two agent modes
+
+| | Offline agent (default) | Claude agent (optional) |
+|---|---|---|
+| Needs | Nothing | An Anthropic API key (sidebar, env var or Streamlit secret) |
+| Understands | English, Hindi, Hinglish: trades, amounts like *"dedh lakh"* / *"तीन लाख"*, yes/no, new vs running | Any phrasing |
+| Tools | Same engine | Same engine, via tool use |
+| If it fails | — | Falls back to the offline agent for that message, so the demo never breaks |
+
+## 🚀 Run it
 
 ```bash
 git clone https://github.com/sreerevanth/CreditSetu.git
@@ -86,52 +103,53 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Open http://localhost:8501, tick the two consent boxes, then click **"Fill in the demo: Sunita's tailoring unit"**.
+Open http://localhost:8501. Optional Claude mode: paste a key under **AI mode** in the sidebar, or `export ANTHROPIC_API_KEY=...`.
 
-To try your own data, upload a CSV statement. Both layouts work:
-- `date, description, amount, type (CR/DR), mode, counterparty, balance`
-- a typical bank export: `Date, Narration, Withdrawal Amt., Deposit Amt., Closing Balance`
-
-**Optional AI explanations:** `pip install anthropic` and set `ANTHROPIC_API_KEY`. The consent screen then offers plain-language summaries. Only results are sent, never the statement.
-
-**Run the tests:**
+**Run the tests** (engine, fairness, agent conversations in both languages, Claude tool loop with a fake client, UI smoke tests):
 
 ```bash
+pip install -r requirements-dev.txt
 pytest -q
 ```
 
+**Deploy a free public link:** see [DEPLOY.md](DEPLOY.md) (Streamlit Community Cloud in about 5 minutes; Docker and Hugging Face Spaces also covered).
+
 ## 🛡️ Responsible AI by design
 
-The brief sets four hard constraints. Here's how each one is met, and tested:
-
-| Constraint | How CreditSetu meets it | Where |
+| The brief's constraint | How CreditSetu meets it | Proof |
 |---|---|---|
-| **Every eligibility claim cites its source** | Each criterion in `data/schemes.json` carries an official source URL. A test fails if any result lacks one. Unknown facts give **"needs info"**, never a guess. | [`creditsetu/schemes.py`](creditsetu/schemes.py), [`tests/test_engine.py`](tests/test_engine.py) |
-| **Risk assessment is fair and explainable** | The score function **can't see** gender, caste, religion or region: they aren't parameters. A test runs every combination and checks that the score never changes. Each factor shows what it measured and how to improve. | [`creditsetu/score.py`](creditsetu/score.py), [`tests/test_fairness.py`](tests/test_fairness.py) |
-| **Financial data only with consent** | Consent screen first; everything stays in the session; "Revoke consent" wipes it. Production would use the Account Aggregator framework. | [`app.py`](app.py) |
-| **The owner approves every application** | Downloads stay locked until the owner ticks the approval box. Submission is simulated. | [`app.py`](app.py) |
+| **Every eligibility claim cites its source** | Each criterion in `data/schemes.json` carries an official URL; unknown facts give **"needs info"**, never a guess. The agent can only relay tool results. | [`schemes.py`](creditsetu/schemes.py), [`test_engine.py`](tests/test_engine.py) |
+| **Fair, explainable risk assessment** | The score function **has no parameter** for gender, caste, religion or region. A test runs every combination and fails if the score moves. Each factor states what it measured and how to improve it. | [`score.py`](creditsetu/score.py), [`test_fairness.py`](tests/test_fairness.py) |
+| **Financial data only with consent** | Statements and photos are processed in the session (OCR runs on the device). Nothing is stored until the owner approves. Gender/category are not shared with the bank. | [`documents.py`](creditsetu/documents.py), [`application.py`](creditsetu/application.py) |
+| **The owner approves every application** | Submit exists only behind an approval checkbox and button, never as an agent tool. | [`ui/common.py`](ui/common.py), [`claude_agent.py`](creditsetu/agent/claude_agent.py) |
 
-**Honest limits:** score weights are judgement-based and **not yet calibrated** on repayment data (the app says so). Scheme rules were checked in November 2026 and must be kept current; PMEGP's continuation after March 2026 is flagged as *verify*.
+**Honest limits:** score weights are judgement-based and **not yet calibrated** on repayment data (the app says so). Scheme rules were checked in November 2026 and need upkeep; PMEGP's continuation after March 2026 is flagged *verify*. The bank workspace is a demo with no login.
 
 ## 🗂️ Project structure
 
 ```
 CreditSetu/
-├── app.py                      # Streamlit app: the six-step guided flow
+├── app.py                     # Entry point: navigation, language, AI mode
+├── ui/                        # Pages: home, chat, guided, track, officer + shared cards
 ├── creditsetu/
-│   ├── statement.py            # Reads bank / UPI CSV statements
-│   ├── profile.py              # Cash-flow profile: income, seasonality, surplus
-│   ├── schemes.py              # Rule engine with citations + financing plan
-│   ├── score.py                # Explainable readiness score + EMI maths
-│   ├── application.py          # Draft application, checklist, JSON loan file
-│   ├── explain.py              # Plain-language summary (template or optional LLM)
-│   └── models.py               # Data structures
-├── data/
-│   ├── schemes.json            # Scheme rules with official sources
-│   └── sample_statement_sunita.csv   # Synthetic demo statement
-├── scripts/make_sample_data.py # Regenerates the synthetic statement
-├── tests/                      # Engine, fairness and app smoke tests
-├── research/                   # Problem analysis, scheme rules, landscape, design decisions
+│   ├── agent/
+│   │   ├── nlu.py             # English / Hindi / Hinglish understanding (amounts, trades, yes/no)
+│   │   ├── offline.py         # Setu offline agent: dialogue, follow-ups, tool calls
+│   │   └── claude_agent.py    # Optional Claude tool-use agent with offline fallback
+│   ├── documents.py           # PDF statements, quotation-photo OCR
+│   ├── statement.py           # CSV statements (simple + bank export formats)
+│   ├── profile.py             # Cash-flow profile
+│   ├── schemes.py             # Cited rule engine + cheapest-first plan (English & Hindi)
+│   ├── score.py               # Explainable readiness score (English & Hindi)
+│   ├── application.py         # Draft application, checklist, JSON loan file
+│   ├── case.py                # One pipeline shared by chat, guided flow and seeding
+│   ├── store.py               # SQLite application store + status events
+│   ├── demo_seed.py           # Six fictional businesses for the bank queue
+│   └── synthetic.py           # Synthetic statement generator
+├── data/                      # schemes.json + synthetic statement (CSV/PDF) + quotation photo
+├── tests/                     # 35 tests
+├── research/                  # Problem, scheme rules, users, landscape, design decisions
+├── DEPLOY.md · Dockerfile · packages.txt
 └── docs/screenshots/
 ```
 
@@ -139,33 +157,35 @@ CreditSetu/
 
 | Scheme | What it offers | Sunita's result |
 |---|---|---|
-| **PM Vishwakarma** | Collateral-free loan up to ₹1 lakh at 5% (then ₹2 lakh) for 18 traditional trades | Likely eligible: needs training status |
-| **MUDRA** (Shishu / Kishore / Tarun / Tarun Plus) | Collateral-free loans up to ₹20 lakh for non-farm micro units | **Eligible:** Kishore |
+| **PM Vishwakarma** | Collateral-free loan up to ₹1 lakh at 5% (then ₹2 lakh) for 18 traditional trades | Likely eligible: training to confirm |
+| **MUDRA** (Shishu / Kishore / Tarun / Tarun Plus) | Collateral-free loans up to ₹20 lakh | **Eligible:** Kishore |
 | **CGFMU** | Guarantee behind MUDRA loans | Applies with MUDRA |
 | **CGTMSE** | Guarantee for collateral-free MSE loans up to ₹10 crore | Eligible, via lender |
 | **PMEGP** | 15–35% subsidy for **new** units | Not a fit: existing unit |
 | **Stand-Up India** | ₹10 lakh–₹1 crore for SC/ST and women, **greenfield** | Not a fit: amount and existing unit |
 
-Full rules and sources: [research/02-scheme-rules.md](research/02-scheme-rules.md).
+Full rules with sources: [research/02-scheme-rules.md](research/02-scheme-rules.md).
 
 ## 🛣️ Roadmap
 
-- [x] **Hackathon prototype:** consent, statement parsing, cited scheme matching, explainable score, fairness test, draft application, English/Hindi summary
-- [ ] PDF statement parsing and invoice-photo OCR
-- [ ] WhatsApp interface with voice input in Hindi and regional languages
-- [ ] Retrieval over official guideline PDFs to keep rules in sync, with human review of every change
-- [ ] **Field pilot:** one SHG federation and one bank branch; measure approval rate and time to sanction
-- [ ] Account Aggregator consent flow; hand-off to JanSamarth / Udyamimitra
-- [ ] Calibrate score weights on real repayment outcomes; monitor approval rates by gender and region
-- [ ] Borrower-agent integration with OCEN / ULI-connected lenders
+- [x] Cited scheme engine, explainable score, fairness test
+- [x] Chat agent (offline + Claude) in English and Hindi
+- [x] PDF statements and quotation-photo OCR
+- [x] Owner approval, bank officer workspace, live tracking
+- [x] Deployable (Streamlit Cloud / Docker)
+- [ ] WhatsApp channel with voice notes
+- [ ] More languages (Marathi, Tamil, Telugu, Bengali)
+- [ ] Account Aggregator consent flow instead of uploads; hand-off to JanSamarth / Udyamimitra
+- [ ] **Field pilot** with one SHG federation and one bank branch; calibrate the score on repayment outcomes
+- [ ] Bank SSO and Postgres for production
 
 ## 🔬 Research
 
-The [`research/`](research/) folder has the background work: [problem analysis](research/01-problem-analysis.md), [scheme rules with sources](research/02-scheme-rules.md), [users and journey](research/03-users-and-journey.md), [landscape (JanSamarth, AA, ULI, OCEN)](research/04-landscape.md), [design decisions](research/05-design-decisions.md), a [field research guide](research/06-field-research-guide.md), and [all sources](research/sources.md).
+[`research/`](research/) has the groundwork: [problem analysis](research/01-problem-analysis.md), [scheme rules with sources](research/02-scheme-rules.md), [users and journey](research/03-users-and-journey.md), [landscape (JanSamarth, AA, ULI, OCEN)](research/04-landscape.md), [design decisions](research/05-design-decisions.md), a [field research guide](research/06-field-research-guide.md), and [all sources](research/sources.md).
 
 ## ⚠️ Disclaimer
 
-CreditSetu is a hackathon prototype, not financial advice and not a lender. Scheme rules are simplified from official sources as of November 2026 and can change. Always confirm on the official scheme page or with your bank before applying.
+CreditSetu is a hackathon build, not financial advice and not a lender. Scheme rules are simplified from official sources as of November 2026 and can change; always confirm on the official scheme page or with your bank. All names, businesses, statements and documents in the demo are fictional.
 
 ---
 

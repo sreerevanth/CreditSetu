@@ -31,7 +31,7 @@ def document_checklist(applicant: Applicant, have: set[str], plan: list[dict]) -
         if key == "udyam" and applicant.udyam_registered:
             have = have | {"udyam"}
         items.append({"key": key, "label": label, "status": "have" if key in have else "missing"})
-    if any("Vishwakarma" in p["name"] for p in plan):
+    if any(p.get("scheme_id", "").startswith("pm_vishwakarma") for p in plan):
         items.append({"key": "vishwakarma_cert",
                       "label": "PM Vishwakarma certificate and basic-training completion",
                       "status": "have" if applicant.vishwakarma_trained else "missing"})
