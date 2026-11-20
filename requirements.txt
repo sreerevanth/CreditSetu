@@ -1,6 +1,6 @@
 streamlit>=1.46
 pandas>=2.0
-# Optional: AI explanations in plain English / Hindi (set ANTHROPIC_API_KEY)
-# anthropic>=0.40
-# Development
-pytest>=8.0
+pdfplumber>=0.11          # PDF bank statements
+rapidocr_onnxruntime>=1.2 # on-device OCR for quotation / invoice photos
+pillow>=10
+anthropic>=0.40           # optional Claude agent (only used when an API key is provided)
