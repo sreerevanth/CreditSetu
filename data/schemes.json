@@ -1,0 +1,193 @@
+{
+  "checked_on": "2026-11-20",
+  "disclaimer": "Prototype rules encoded from official sources for demonstration. Always confirm on the linked official page before applying.",
+  "schemes": [
+    {
+      "id": "pm_vishwakarma_t1",
+      "scheme": "PM Vishwakarma",
+      "name": "PM Vishwakarma – first loan",
+      "kind": "loan",
+      "summary": "Collateral-free Enterprise Development Loan for artisans in 18 traditional trades, at a concessional 5% a year.",
+      "benefit": "Up to ₹1,00,000 at 5% for 18 months. A second loan of up to ₹2,00,000 for 30 months can follow after this one is repaid well.",
+      "max_amount": 100000,
+      "indicative_rate": 5.0,
+      "tenure_months": 18,
+      "apply_via": "PM Vishwakarma portal (pmvishwakarma.gov.in) through a Common Service Centre",
+      "sources": [
+        {"title": "myScheme – PM Vishwakarma", "url": "https://myscheme.gov.in/schemes/pmv"},
+        {"title": "PIB factsheet, Sep 2025", "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/sep/doc2025916638501.pdf"}
+      ],
+      "criteria": [
+        {"id": "trade", "text": "Works in one of the 18 listed traditional trades (for example Tailor/Darzi, Barber, Carpenter, Mason)", "check": {"field": "trade", "op": "in", "value": ["tailor", "carpenter", "boat_maker", "armourer", "blacksmith", "hammer_toolkit_maker", "locksmith", "goldsmith", "potter", "sculptor", "stone_breaker", "cobbler", "mason", "basket_mat_broom_maker", "doll_toy_maker", "barber", "garland_maker", "washerman", "fishing_net_maker"]}, "source": 0},
+        {"id": "age", "text": "Applicant is at least 18 years old", "check": {"field": "age", "op": "gte", "value": 18}, "source": 0},
+        {"id": "training", "text": "Has completed the scheme's basic skill training (needed for the first loan)", "check": {"field": "vishwakarma_trained", "op": "eq", "value": true}, "source": 1, "fix": "Register on the PM Vishwakarma portal and complete the 5–7 day basic training, which comes with a daily stipend."},
+        {"id": "no_prior", "text": "Has not taken a loan under a similar self-employment credit scheme (such as PMEGP, PM SVANidhi or MUDRA) in recent years, unless the scheme's exceptions apply", "check": {"field": "prior_scheme_loan", "op": "eq", "value": false}, "source": 0, "fix": "Check the exact rule and its exceptions on the PM Vishwakarma portal."}
+      ]
+    },
+    {
+      "id": "pmmy_shishu",
+      "scheme": "PM MUDRA Yojana",
+      "name": "MUDRA Shishu",
+      "kind": "loan",
+      "summary": "Collateral-free loan for non-farm micro enterprises, guaranteed through CGFMU.",
+      "benefit": "Up to ₹50,000, term loan or working capital, at the lender's rate.",
+      "max_amount": 50000,
+      "indicative_rate": 10.0,
+      "tenure_months": 24,
+      "apply_via": "Any bank, NBFC or MFI branch, or online on JanSamarth / Udyamimitra",
+      "sources": [
+        {"title": "Department of Financial Services – PMMY", "url": "https://financialservices.gov.in/index.php/pradhan-mantri-mudra-yojana-pmmy"},
+        {"title": "myScheme – PMMY", "url": "https://myscheme.gov.in/schemes/pmmy"}
+      ],
+      "criteria": [
+        {"id": "sector", "text": "Income-generating non-farm micro enterprise in manufacturing, trading or services (activities allied to agriculture allowed)", "check": {"field": "sector", "op": "in", "value": ["manufacturing", "trading", "services", "allied_agriculture"]}, "source": 0},
+        {"id": "amount", "text": "Loan amount up to ₹50,000", "check": {"field": "loan_amount", "op": "between", "value": [1, 50000]}, "source": 0},
+        {"id": "no_default", "text": "Not in default with any bank or financial institution", "check": {"field": "has_default", "op": "eq", "value": false}, "source": 1}
+      ]
+    },
+    {
+      "id": "pmmy_kishore",
+      "scheme": "PM MUDRA Yojana",
+      "name": "MUDRA Kishore",
+      "kind": "loan",
+      "summary": "Collateral-free loan for non-farm micro enterprises, guaranteed through CGFMU.",
+      "benefit": "Above ₹50,000 and up to ₹5 lakh, term loan or working capital, at the lender's rate.",
+      "max_amount": 500000,
+      "indicative_rate": 10.0,
+      "tenure_months": 36,
+      "apply_via": "Any bank, NBFC or MFI branch, or online on JanSamarth / Udyamimitra",
+      "sources": [
+        {"title": "Department of Financial Services – PMMY", "url": "https://financialservices.gov.in/index.php/pradhan-mantri-mudra-yojana-pmmy"},
+        {"title": "myScheme – PMMY", "url": "https://myscheme.gov.in/schemes/pmmy"}
+      ],
+      "criteria": [
+        {"id": "sector", "text": "Income-generating non-farm micro enterprise in manufacturing, trading or services (activities allied to agriculture allowed)", "check": {"field": "sector", "op": "in", "value": ["manufacturing", "trading", "services", "allied_agriculture"]}, "source": 0},
+        {"id": "amount", "text": "Loan amount above ₹50,000 and up to ₹5 lakh", "check": {"field": "loan_amount", "op": "between", "value": [50001, 500000]}, "source": 0},
+        {"id": "no_default", "text": "Not in default with any bank or financial institution", "check": {"field": "has_default", "op": "eq", "value": false}, "source": 1}
+      ]
+    },
+    {
+      "id": "pmmy_tarun",
+      "scheme": "PM MUDRA Yojana",
+      "name": "MUDRA Tarun",
+      "kind": "loan",
+      "summary": "Collateral-free loan for growing non-farm micro enterprises, guaranteed through CGFMU.",
+      "benefit": "Above ₹5 lakh and up to ₹10 lakh, at the lender's rate.",
+      "max_amount": 1000000,
+      "indicative_rate": 10.0,
+      "tenure_months": 60,
+      "apply_via": "Any bank, NBFC or MFI branch, or online on JanSamarth / Udyamimitra",
+      "sources": [
+        {"title": "Department of Financial Services – PMMY", "url": "https://financialservices.gov.in/index.php/pradhan-mantri-mudra-yojana-pmmy"},
+        {"title": "myScheme – PMMY", "url": "https://myscheme.gov.in/schemes/pmmy"}
+      ],
+      "criteria": [
+        {"id": "sector", "text": "Income-generating non-farm micro enterprise in manufacturing, trading or services (activities allied to agriculture allowed)", "check": {"field": "sector", "op": "in", "value": ["manufacturing", "trading", "services", "allied_agriculture"]}, "source": 0},
+        {"id": "amount", "text": "Loan amount above ₹5 lakh and up to ₹10 lakh", "check": {"field": "loan_amount", "op": "between", "value": [500001, 1000000]}, "source": 0},
+        {"id": "no_default", "text": "Not in default with any bank or financial institution", "check": {"field": "has_default", "op": "eq", "value": false}, "source": 1}
+      ]
+    },
+    {
+      "id": "pmmy_tarun_plus",
+      "scheme": "PM MUDRA Yojana",
+      "name": "MUDRA Tarun Plus",
+      "kind": "loan",
+      "summary": "For MUDRA borrowers who have repaid a Tarun loan and need more.",
+      "benefit": "Above ₹10 lakh and up to ₹20 lakh, at the lender's rate.",
+      "max_amount": 2000000,
+      "indicative_rate": 10.0,
+      "tenure_months": 60,
+      "apply_via": "Any bank, NBFC or MFI branch, or online on JanSamarth / Udyamimitra",
+      "sources": [
+        {"title": "PIB – MUDRA categories including Tarun Plus", "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2069170"},
+        {"title": "PIB factsheet, Apr 2026", "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2026/apr/doc202648842601.pdf"}
+      ],
+      "criteria": [
+        {"id": "sector", "text": "Income-generating non-farm micro enterprise in manufacturing, trading or services", "check": {"field": "sector", "op": "in", "value": ["manufacturing", "trading", "services", "allied_agriculture"]}, "source": 1},
+        {"id": "amount", "text": "Loan amount above ₹10 lakh and up to ₹20 lakh", "check": {"field": "loan_amount", "op": "between", "value": [1000001, 2000000]}, "source": 0},
+        {"id": "tarun_repaid", "text": "Has availed and successfully repaid a previous MUDRA Tarun loan", "check": {"field": "prior_tarun_repaid", "op": "eq", "value": true}, "source": 0},
+        {"id": "no_default", "text": "Not in default with any bank or financial institution", "check": {"field": "has_default", "op": "eq", "value": false}, "source": 1}
+      ]
+    },
+    {
+      "id": "pmegp",
+      "scheme": "PMEGP",
+      "name": "PMEGP – new unit subsidy",
+      "kind": "loan",
+      "summary": "Bank loan with a 15–35% margin-money subsidy for setting up a new non-farm micro enterprise.",
+      "benefit": "Subsidy of 15–35% of project cost depending on category and area; project cost up to ₹50 lakh (manufacturing) or ₹20 lakh (business/service).",
+      "max_amount": 5000000,
+      "indicative_rate": 11.0,
+      "tenure_months": 60,
+      "apply_via": "PMEGP e-portal (KVIC)",
+      "status_note": "Verify: PMEGP was approved to 31 March 2026 and its continuation is being decided. Check the official portal before applying.",
+      "sources": [
+        {"title": "myScheme – PMEGP", "url": "https://myscheme.gov.in/schemes/pmegp"},
+        {"title": "SBI – PMEGP", "url": "https://sbi.co.in/web/agri-rural/pmegp"}
+      ],
+      "criteria": [
+        {"id": "new_unit", "text": "For setting up a new unit (existing businesses can't get the margin-money subsidy)", "check": {"field": "is_new_unit", "op": "eq", "value": true}, "source": 1},
+        {"id": "age", "text": "Applicant is at least 18 years old", "check": {"field": "age", "op": "gte", "value": 18}, "source": 0},
+        {"id": "cap_mfg", "text": "Project cost up to ₹50 lakh for a manufacturing unit", "when": {"field": "sector", "op": "eq", "value": "manufacturing"}, "check": {"field": "loan_amount", "op": "lte", "value": 5000000}, "source": 0},
+        {"id": "cap_service", "text": "Project cost up to ₹20 lakh for a business or service unit", "when": {"field": "sector", "op": "in", "value": ["services", "trading"]}, "check": {"field": "loan_amount", "op": "lte", "value": 2000000}, "source": 0}
+      ]
+    },
+    {
+      "id": "stand_up_india",
+      "scheme": "Stand-Up India",
+      "name": "Stand-Up India",
+      "kind": "loan",
+      "summary": "Bank loans for SC/ST and women entrepreneurs setting up a first (greenfield) enterprise. Eligibility is set by the scheme itself; CreditSetu never uses these details in your score.",
+      "benefit": "Composite loan of ₹10 lakh to ₹1 crore (term loan plus working capital).",
+      "max_amount": 10000000,
+      "indicative_rate": 10.5,
+      "tenure_months": 84,
+      "apply_via": "Any scheduled commercial bank branch, or standupmitra.in",
+      "sources": [
+        {"title": "myScheme – Stand-Up India", "url": "https://myscheme.gov.in/schemes/sui"},
+        {"title": "SBI – Stand-Up India", "url": "https://sbi.co.in/web/get-business-product-information/stand-up-india"}
+      ],
+      "criteria": [
+        {"id": "category", "text": "Borrower is SC/ST and/or a woman (scheme rule)", "check": {"any": [{"field": "gender", "op": "eq", "value": "female"}, {"field": "social_category", "op": "in", "value": ["sc", "st"]}]}, "source": 0},
+        {"id": "greenfield", "text": "For a greenfield (first-time) enterprise", "check": {"field": "is_new_unit", "op": "eq", "value": true}, "source": 1},
+        {"id": "amount", "text": "Loan amount from ₹10 lakh to ₹1 crore", "check": {"field": "loan_amount", "op": "between", "value": [1000000, 10000000]}, "source": 1},
+        {"id": "age", "text": "Borrower is at least 18 years old", "check": {"field": "age", "op": "gte", "value": 18}, "source": 0},
+        {"id": "no_default", "text": "Not in default with any bank or financial institution", "check": {"field": "has_default", "op": "eq", "value": false}, "source": 0}
+      ]
+    },
+    {
+      "id": "cgfmu",
+      "scheme": "CGFMU",
+      "name": "CGFMU guarantee (with MUDRA)",
+      "kind": "guarantee",
+      "summary": "Government credit guarantee that backs MUDRA loans, so the lender doesn't need collateral. The lender applies for it.",
+      "benefit": "Collateral-free MUDRA loan; no action needed from you beyond applying for MUDRA.",
+      "apply_via": "Automatic through the MUDRA lender",
+      "sources": [
+        {"title": "CGFMU continuation to March 2031", "url": "https://newsonair.gov.in/union-cabinet-approves-continuation-of-credit-guarantee-fund-for-micro-units-under-pm-mudra-yojana-till-march-2031/"}
+      ],
+      "criteria": [
+        {"id": "mudra_range", "text": "Applies to MUDRA loans (up to ₹20 lakh)", "check": {"field": "loan_amount", "op": "between", "value": [1, 2000000]}, "source": 0},
+        {"id": "sector", "text": "Non-farm micro enterprise", "check": {"field": "sector", "op": "in", "value": ["manufacturing", "trading", "services", "allied_agriculture"]}, "source": 0}
+      ]
+    },
+    {
+      "id": "cgtmse",
+      "scheme": "CGTMSE",
+      "name": "CGTMSE guarantee (non-MUDRA loans)",
+      "kind": "guarantee",
+      "summary": "Credit guarantee to your lender for collateral-free loans to micro and small enterprises, up to ₹10 crore. Coverage is higher (90%) for women-led enterprises. The lender applies.",
+      "benefit": "Ask your branch to sanction a non-MUDRA business loan under CGTMSE cover so no collateral is needed.",
+      "apply_via": "Through your lender (member lending institution)",
+      "sources": [
+        {"title": "CGTMSE", "url": "https://www.cgtmse.in"},
+        {"title": "DC-MSME – Credit Guarantee Scheme", "url": "https://dcmsme.gov.in/CLCS_TUS_Scheme/Credit_Guarantee_Scheme/Scheme_Guidelines.aspx"}
+      ],
+      "criteria": [
+        {"id": "size", "text": "Micro or small enterprise", "check": {"field": "enterprise_size", "op": "in", "value": ["micro", "small"]}, "source": 1},
+        {"id": "sector", "text": "In manufacturing, services or trading", "check": {"field": "sector", "op": "in", "value": ["manufacturing", "trading", "services"]}, "source": 1},
+        {"id": "amount", "text": "Credit up to ₹10 crore", "check": {"field": "loan_amount", "op": "between", "value": [1, 100000000]}, "source": 0}
+      ]
+    }
+  ]
+}
